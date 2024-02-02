@@ -3,7 +3,6 @@
 
 #![no_std]
 #![no_main]
-#![feature(type_alias_impl_trait)]
 
 use defmt::*;
 use embassy_executor::Spawner;
@@ -13,7 +12,7 @@ use embassy_rp::pio::{
     Common, Config, FifoJoin, Instance, InterruptHandler, Pio, PioPin, ShiftConfig, ShiftDirection, StateMachine,
 };
 use embassy_rp::{bind_interrupts, clocks, into_ref, Peripheral, PeripheralRef};
-use embassy_time::{Duration, Timer};
+use embassy_time::Timer;
 use fixed::types::U24F8;
 use fixed_macro::fixed;
 use smart_leds::RGB8;
@@ -153,7 +152,7 @@ async fn main(_spawner: Spawner) {
             }
             ws2812.write(&data).await;
 
-            Timer::after(Duration::from_millis(10)).await;
+            Timer::after_millis(10).await;
         }
     }
 }
